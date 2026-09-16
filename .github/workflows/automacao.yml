@@ -3,11 +3,11 @@ name: Automação da Calculadora
 on:
   push:
     branches:
-      - main
+      - master
 
   pull_request:
     branches:
-      - main
+      - master
 
 jobs:
   verificar-projeto:
