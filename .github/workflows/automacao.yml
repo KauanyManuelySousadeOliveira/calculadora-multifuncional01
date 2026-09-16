@@ -3,11 +3,11 @@ name: Automação da Calculadora
 on:
   push:
     branches:
-      - master
+      - main
 
   pull_request:
     branches:
-      - master
+      - main
 
 jobs:
   verificar-projeto:
@@ -25,9 +25,27 @@ jobs:
           test -f script.js
           echo "Todos os arquivos principais foram encontrados!"
 
+      - name: Configurar o Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Instalar validadores (HTML, CSS e JS)
+        run: |
+          npm install -g htmlhint stylelint stylelint-config-standard eslint
+
+      - name: Validar sintaxe do HTML
+        run: htmlhint index.html
+
+      - name: Validar sintaxe do JavaScript
+        run: |
+          # Executa uma verificação básica de sintaxe usando o próprio Node.js
+          node -c script.js
+          echo "Sintaxe do JavaScript validada com sucesso!"
+
       - name: Finalizar automação
         run: |
           echo "===================================="
           echo "Automação executada com sucesso!"
-          echo "Calculadora Multifuncional"
+          echo "Calculadora Multifuncional V2.2.0"
           echo "===================================="
