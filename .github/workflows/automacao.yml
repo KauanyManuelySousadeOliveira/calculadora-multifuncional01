@@ -46,9 +46,21 @@ jobs:
       - name: Executar testes matemáticos unitários
         run: node calculadora.test.js
 
-      - name: Finalizar automação
-        run: |
-          echo "===================================="
-          echo "Automação executada com sucesso!"
-          echo "Calculadora Multifuncional V2.3.0"
-          echo "===================================="
+      - name: Finalizar verificação
+        run: echo "Todos os testes e validações passaram com sucesso!"
+
+  deploy-projeto:
+    needs: verificar-projeto
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    permissions:
+      contents: write
+    steps:
+      - name: Baixar o código do projeto
+        uses: actions/checkout@v4
+
+      - name: Fazer o Deploy Automático no GitHub Pages 🚀
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
