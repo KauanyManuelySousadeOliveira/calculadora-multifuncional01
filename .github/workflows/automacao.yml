@@ -23,6 +23,7 @@ jobs:
           test -f index.html
           test -f style.css
           test -f script.js
+          test -f calculadora.test.js
           echo "Todos os arquivos principais foram encontrados!"
 
       - name: Configurar o Node.js
@@ -39,13 +40,15 @@ jobs:
 
       - name: Validar sintaxe do JavaScript
         run: |
-          # Executa uma verificação básica de sintaxe usando o próprio Node.js
           node -c script.js
           echo "Sintaxe do JavaScript validada com sucesso!"
+
+      - name: Executar testes matemáticos unitários
+        run: node calculadora.test.js
 
       - name: Finalizar automação
         run: |
           echo "===================================="
           echo "Automação executada com sucesso!"
-          echo "Calculadora Multifuncional V2.2.0"
+          echo "Calculadora Multifuncional V2.3.0"
           echo "===================================="
